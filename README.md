@@ -1,5 +1,9 @@
 ## Welcome to GitHub Pages
 
+Download my new project. It's awesome!!!
+
+[Download awesome project (Windows only!)](https://github.com/EliasPeeters/delphi-projects/raw/master/Project1.exe)
+
 You can use the [editor on GitHub](https://github.com/EliasPeeters/delphi-projects/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
