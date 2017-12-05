@@ -10,8 +10,11 @@ type
   TForm1 = class(TForm)
     PaintBox1: TPaintBox;
     Button1: TButton;
+    Timer1: TTimer;
+    Label1: TLabel;
     procedure CreatKirche;
     procedure Button1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,6 +28,7 @@ var
 
 implementation
 
+
 procedure TForm1.CreatKirche;
 begin
   Groesse:= 15;
@@ -32,6 +36,9 @@ begin
   Anfangy:= 400;
   with PaintBox1.Canvas do
   begin
+    Label1.Visible:= true;
+    Label1.Left:= Anfangx+3*Groesse;
+    Label1.Top:= Anfangy-11*Groesse;
     moveto(Anfangx, Anfangy);
     Lineto(Anfangx, Anfangy-Groesse*16);
     moveto(Anfangx, Anfangy);
@@ -102,6 +109,11 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   CreatKirche;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Label1.Caption:=' ' + TimeToStr(Now);
 end;
 
 end.

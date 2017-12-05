@@ -4,19 +4,23 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
   TForm1 = class(TForm)
     MalKasten: TPaintBox;
     EdtEingabeFunktion: TEdit;
     Panel1: TPanel;
-    Button1: TButton;
-    Button2: TButton;
+    Panel2: TPanel;
+    Timer1: TTimer;
+    TrackBar1: TTrackBar;
     procedure Malen;
     procedure Button1Click(Sender: TObject);
     procedure EdtEingabeFunktionChange(Sender: TObject);
     procedure Malx;
+    procedure Timer1Timer(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
+    procedure Funktionzeichnen;
   private
     { Private declarations }
   public
@@ -25,7 +29,9 @@ type
 
 var
   Form1: TForm1;
-  Eingabe: String;
+  Eingabe: Extended;
+  XWert8, XWertMinus8 : Integer;
+
 
 implementation
 
@@ -42,14 +48,57 @@ with MalKasten.Canvas do
 end;
 
 
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Malen;
+  Timer1.Enabled:= false;
+end;
+
+procedure TForm1.TrackBar1Change(Sender: TObject);
+begin
+  Funktionzeichnen;
+end;
+
+function XPixelwertZuKoordinatensystem(Pixelwert, Verschiebung, Skalierung: Extended): Extended;
+begin
+  Result:= (Pixelwert-Verschiebung)/Skalierung;
+end;
+
+function YKoordinatensystemZuPixelwert(Koordinatensystem, Verschiebung, Skalierung: Extended): Integer;
+begin
+  Result:= Round(-(Koordinatensystem*Skalierung)+Verschiebung);
+end;
+
+function Graphen (Eingabe, xWert: Extended):Extended;
+begin
+  Result:= xWert*xWert*Eingabe;
+end;
+
+procedure TForm1.FunktionZeichnen;
+var
+XVerschiebung, YVerschiebung: Extended;
+I: Integer;
+Skalierung: Extended;
+begin
+  Malen;
+  Eingabe:= StrToFloat(EdtEingabeFunktion.Text);
+  Skalierung:= Trackbar1.Position;
+  xVerschiebung:= Malkasten.Width div 2;
+  yVerschiebung:= Malkasten.Height div 2;
+
+
+
+  Malkasten.Canvas.MoveTo(0, YKoordinatensystemZuPixelwert(Graphen(Eingabe, XPixelwertZuKoordinatensystem(0,XVerschiebung, Skalierung)),yVerschiebung, Skalierung));
+
+  for I := 1 to Malkasten.Width-1 do
+  begin
+    Malkasten.Canvas.LineTo(I, YKoordinatensystemZuPixelwert(Graphen(Eingabe, XPixelwertZuKoordinatensystem(I,XVerschiebung, Skalierung)),yVerschiebung, Skalierung));
+  end;
+end;
+
 procedure TForm1.EdtEingabeFunktionChange(Sender: TObject);
 begin
-  Eingabe:= EdtEingabeFunktion.Text;
-  if Eingabe= 'x' then
-  begin
-    Malx;
-  end;
-
+  FunktionZeichnen;
 end;
 
 procedure TForm1.Malen;

@@ -24,10 +24,9 @@ object Form1: TForm1
   object EdtEingabeFunktion: TEdit
     Left = 855
     Top = 48
-    Width = 121
+    Width = 26
     Height = 21
     TabOrder = 0
-    Text = 'EdtEingabeFunktion'
     OnChange = EdtEingabeFunktionChange
   end
   object Panel1: TPanel
@@ -38,21 +37,29 @@ object Form1: TForm1
     Caption = 'f(x)='
     TabOrder = 1
   end
-  object Button1: TButton
-    Left = 840
-    Top = 136
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
+  object Panel2: TPanel
+    Left = 874
+    Top = 47
+    Width = 23
+    Height = 21
+    Caption = 'x'
     TabOrder = 2
-    OnClick = Button1Click
   end
-  object Button2: TButton
-    Left = 840
-    Top = 272
-    Width = 75
-    Height = 25
-    Caption = 'Mach f(x)=x'
+  object TrackBar1: TTrackBar
+    Left = 806
+    Top = 192
+    Width = 150
+    Height = 45
+    Max = 1000
+    Min = 1
+    Position = 10
     TabOrder = 3
+    OnChange = TrackBar1Change
+  end
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 864
+    Top = 336
   end
 end
