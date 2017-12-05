@@ -86,8 +86,8 @@ begin
   finally
     S.Free;
   end;
-end;    {
-
+end;
+{
 procedure GelbeAmpelLaden (image: TImage);
 begin
   LoadImage('AmpelGelb', image);
@@ -111,7 +111,8 @@ end;
 procedure YachtLaden (image: TImage);
 begin
   LoadImage('Yacht', image);
-end;  }
+end;
+}
 
 procedure TForm1.HSAmpelLaden(image: String);
 begin
@@ -188,10 +189,14 @@ begin
     NSAmpelLaden(Gelb);
   end
 
+  else if KreuzungsTick = 24 then
+  begin
+    NSAmpelLaden(Rot);
+  end
+
   else if KreuzungsTick = 25 then
   begin
     HSAmpelLaden(RotGelb);
-    NSAmpelLaden(Rot);
     AmpelRotNS:= false;
     AmpelRotHS:= true;
     KreuzungsTick:= 0;

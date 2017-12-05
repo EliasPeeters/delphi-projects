@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderStyle = bsDialog
   Caption = 'Form1'
   ClientHeight = 447
-  ClientWidth = 953
+  ClientWidth = 950
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
