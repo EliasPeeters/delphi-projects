@@ -14,6 +14,8 @@ type
     Panel2: TPanel;
     Timer1: TTimer;
     TrackBar1: TTrackBar;
+    Panel3: TPanel;
+    Panel4: TPanel;
     procedure Malen;
     procedure Button1Click(Sender: TObject);
     procedure EdtEingabeFunktionChange(Sender: TObject);

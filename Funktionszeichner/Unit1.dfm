@@ -40,9 +40,9 @@ object Form1: TForm1
   object Panel2: TPanel
     Left = 874
     Top = 47
-    Width = 23
+    Width = 39
     Height = 21
-    Caption = 'x'
+    Caption = 'x^2'
     TabOrder = 2
   end
   object TrackBar1: TTrackBar
@@ -55,6 +55,22 @@ object Form1: TForm1
     Position = 10
     TabOrder = 3
     OnChange = TrackBar1Change
+  end
+  object Panel3: TPanel
+    Left = 816
+    Top = 87
+    Width = 41
+    Height = 21
+    Caption = 'f(x)='
+    TabOrder = 4
+  end
+  object Panel4: TPanel
+    Left = 874
+    Top = 87
+    Width = 39
+    Height = 21
+    Caption = 'x'
+    TabOrder = 5
   end
   object Timer1: TTimer
     Interval = 1

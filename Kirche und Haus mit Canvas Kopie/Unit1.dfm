@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 502
+  ClientHeight = 622
   ClientWidth = 941
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,14 +14,14 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object PaintBox1: TPaintBox
-    Left = 24
-    Top = 24
-    Width = 697
-    Height = 457
+    Left = 0
+    Top = 0
+    Width = 833
+    Height = 617
   end
   object Label1: TLabel
-    Left = 608
-    Top = 288
+    Left = 880
+    Top = 304
     Width = 49
     Height = 25
     AutoSize = False
@@ -29,7 +29,7 @@ object Form1: TForm1
     Visible = False
   end
   object Button1: TButton
-    Left = 736
+    Left = 808
     Top = 8
     Width = 75
     Height = 25
@@ -38,7 +38,7 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object TrackBar1: TTrackBar
-    Left = 752
+    Left = 792
     Top = 224
     Width = 150
     Height = 45
@@ -50,7 +50,11 @@ object Form1: TForm1
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    Left = 752
-    Top = 152
+    Left = 840
+    Top = 32
+  end
+  object Timer2: TTimer
+    Left = 896
+    Top = 32
   end
 end
