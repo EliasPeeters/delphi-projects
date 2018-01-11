@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls,
+  Vcl.PlatformDefaultStyleActnCtrls, Vcl.Menus, Vcl.ActnPopup,
+  Vcl.Imaging.pngimage;
 
 type
   TForm1 = class(TForm)
@@ -16,6 +18,17 @@ type
     TrackBar1: TTrackBar;
     Panel3: TPanel;
     Panel4: TPanel;
+    MainMenu1: TMainMenu;
+    T1: TMenuItem;
+    Die1: TMenuItem;
+    ist1: TMenuItem;
+    ein1: TMenuItem;
+    est1: TMenuItem;
+    Programm1: TMenuItem;
+    Schlieen1: TMenuItem;
+    test1: TMenuItem;
+    Minimieren1: TMenuItem;
+    Abstuerzen1: TMenuItem;
     procedure Malen;
     procedure Button1Click(Sender: TObject);
     procedure EdtEingabeFunktionChange(Sender: TObject);
@@ -23,6 +36,9 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure Funktionzeichnen;
+    procedure Schlieen1Click(Sender: TObject);
+    procedure Minimieren1Click(Sender: TObject);
+    procedure Abstuerzen1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +65,16 @@ with MalKasten.Canvas do
   end;
 end;
 
+
+procedure TForm1.Minimieren1Click(Sender: TObject);
+begin
+  Application.Minimize;
+end;
+
+procedure TForm1.Schlieen1Click(Sender: TObject);
+begin
+  Close;
+end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
@@ -87,7 +113,7 @@ begin
   Skalierung:= Trackbar1.Position;
   xVerschiebung:= Malkasten.Width div 2;
   yVerschiebung:= Malkasten.Height div 2;
-
+  Malkasten.Canvas.TextOut(10,230,FloatToStr(Skalierung));
 
 
   Malkasten.Canvas.MoveTo(0, YKoordinatensystemZuPixelwert(Graphen(Eingabe, XPixelwertZuKoordinatensystem(0,XVerschiebung, Skalierung)),yVerschiebung, Skalierung));
@@ -121,6 +147,13 @@ begin
     MoveTo(400, 0);
     LineTo(410, 10);
   end;
+end;
+
+
+
+procedure TForm1.Abstuerzen1Click(Sender: TObject);
+begin
+  Form1.Cursor:= crHourGlass;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);

@@ -5,17 +5,33 @@ interface
 
 uses
   Windows, SysUtils, Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ExtCtrls;
+  Forms, Dialogs, StdCtrls, ExtCtrls, Math, Vcl.Samples.Spin;
 
 type
+  TAuto = Record
+    Anfangx: Integer;
+    Anfangy: Integer;
+  End;
+
+
   TFrmAnwendung = class(TForm)
     ImgBild: TImage;
     BtnZeichnen: TButton;
     BtnLoeschen: TButton;
+    PnlHelp: TPanel;
+    Drawatbegin: TTimer;
+    Timer1: TTimer;
     procedure FormActivate(Sender: TObject);
     procedure BtnZeichnenClick(Sender: TObject);
     procedure BtnLoeschenClick(Sender: TObject);
-  //  procedure CreatKirche(Anfangx, Anfangy, Groesse: Integer);
+    procedure CreatKirche(Anfangx, Anfangy, Groesse: Integer);
+    procedure AutoMalen(Anfangx, Anfangy, Groesse: Real);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure PnlHelpClick(Sender: TObject);
+    procedure DrawatbeginTimer(Sender: TObject);
+    procedure AutoAuto(Auto: TAuto);
+    procedure Timer1Timer(Sender: TObject);
+
 
   private
     procedure StrassenZeichnen;
@@ -23,7 +39,12 @@ type
     { public Public-Deklarationen }
   end;
 
-var FrmAnwendung: TFrmAnwendung;
+var
+
+FrmAnwendung: TFrmAnwendung;
+Anfangx: Real = 500;
+Anfangy: Real = 550;
+Autos: Array [0..10]  of TAuto;
 
 implementation
 
@@ -34,11 +55,46 @@ begin
   ImgBild.Canvas.Rectangle (0,0,ImgBild.Width,ImgBild.Height)
 end;
 
+function Hausgroesseberechnen(Anfangy: Real): Real;
+begin
+  result:= 1 / 92 * Anfangy + 31/23;
+end;
+
+procedure TFrmAnwendung.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #27 then
+  close
+
+  else if Key = #119 then
+  Anfangy:= Anfangy-10
+
+  else if Key = #115 then
+  Anfangy:= Anfangy+10
+
+  else if Key = #97 then
+  Anfangx:= Anfangx-5
+
+  else  if Key = #100 then
+  Anfangx:= Anfangx+5;
+
+
+  ImgBild.Canvas.Rectangle(0,0,ImgBild.Width, ImgBild.Height);
+
+  BtnZeichnenClick(Sender);
+
+  AutoMalen(Anfangx, Anfangy, Hausgroesseberechnen(Anfangy)*3);
+
+end;
+
+procedure TFrmAnwendung.PnlHelpClick(Sender: TObject);
+begin
+  ShowMessage('Press w,a,s,d to controll the car; esc for exit');
+end;
+
 procedure TFrmAnwendung.BtnLoeschenClick(Sender: TObject);
 begin
    ImgBild.Canvas.Rectangle (0,0,ImgBild.Width,ImgBild.Height)
 end;
-
 
 procedure TFrmAnwendung.StrassenZeichnen;
 begin
@@ -75,12 +131,93 @@ begin
       Pen.Width := 1
     end
 end;
-{
-procedure TForm1.CreatKirche(Anfangx, Anfangy, Groesse: Integer);
+
+procedure TFrmAnwendung.Timer1Timer(Sender: TObject);
+var
+I: Integer;
 begin
-  Anfangx:= 50;
-  Anfangy:= 400;
-  with ImgBild.Canvas do
+  AutoAuto(Autos[1]);
+
+end;
+
+procedure TFrmAnwendung.DrawatbeginTimer(Sender: TObject);
+begin
+   BtnZeichnenClick(Sender);
+   DrawatBegin.Enabled:= false;
+end;
+
+function HausAnfangx(Hausnummer: Integer): Integer;
+begin
+  case Hausnummer of
+    1: result:= -30;
+    2: result:= 230;
+    3: result:= 400;
+    4: result:= 570;
+    5: result:= 340;
+    6: result:= 470;
+    7: result:= 50;
+    8: result:= 130;
+    9: result:= 210;
+    10: result:= 290;
+    11: result:= 5;
+    12: result:= 55;
+    13: result:= 105;
+    14: result:= 155;
+    15: result:= 205;
+    16: result:= 255;
+    17: result:= 305;
+    18: result:= 355;
+    19: result:= 405;
+    20: result:= 455;
+    21: result:= 505;
+    22: result:= 555;
+    23: result:= 605;
+    24: result:= 655;
+    25: result:= 705;
+
+
+  end;
+end;
+
+function HausAnfany(Hausnummer: Integer): Integer;
+begin
+  case Hausnummer of
+    1: result:= 520;
+    2: result:= 520;
+    3: result:= 520;
+    4: result:= 520;
+    5: result:= 370;
+    6: result:= 370;
+    7: result:= 180;
+    8: result:= 180;
+    9: result:= 180;
+    10: result:= 180;
+    11: result:= 60;
+    12: result:= 60;
+    13: result:= 60;
+    14: result:= 60;
+    15: result:= 60;
+    16: result:= 60;
+    17: result:= 60;
+    18: result:= 60;
+    19: result:= 60;
+    20: result:= 60;
+    21: result:= 60;
+    22: result:= 60;
+    23: result:= 60;
+    24: result:= 60;
+    25: result:= 60;
+  end;
+end;
+
+procedure TFrmAnwendung.AutoMalen(Anfangx, Anfangy, Groesse: Real);
+begin
+   ImgBild.Canvas.Rectangle(trunc(Anfangx), trunc(Anfangy),trunc(Anfangx + Groesse), trunc(Anfangy + Groesse))
+end;
+
+procedure TFrmAnwendung.CreatKirche(Anfangx, Anfangy, Groesse: Integer);
+begin
+with ImgBild.Canvas do
   begin
     moveto(Anfangx, Anfangy);
     Lineto(Anfangx, Anfangy-Groesse*16);
@@ -144,38 +281,39 @@ begin
     Lineto(Anfangx+21*Groesse, Anfangy-2*Groesse);
     moveto(Anfangx+21*Groesse, Anfangy-2*Groesse);
     Lineto(Anfangx+19*Groesse, Anfangy-2*Groesse);
-    moveto(Anfangx+31*Groesse, Anfangy);             // Haus
-    Lineto(Anfangx+39*Groesse, Anfangy);
-    Lineto(Anfangx+39*Groesse, Anfangy-8*Groesse);
-    Lineto(Anfangx+31*Groesse, Anfangy-8*Groesse);
-    Lineto(Anfangx+31*Groesse, Anfangy);
-    moveto(Anfangx+31*Groesse, Anfangy-8*Groesse);
-    Lineto(Anfangx+35*Groesse, Anfangy-13*Groesse);
-    Lineto(Anfangx+39*Groesse, Anfangy-8*Groesse);
-    moveto(Anfangx+32*Groesse, Anfangy);
-    Lineto(Anfangx+32*Groesse, Anfangy-3*Groesse);
-    Lineto(Anfangx+34*Groesse, Anfangy-3*Groesse);
-    Lineto(Anfangx+34*Groesse, Anfangy);
-    Moveto(Anfangy+36*Groesse, Anfangy-1*Groesse);
-    Lineto(Anfangy+38*Groesse, Anfangy-1*Groesse);
-  end;
 end;
-}
-
-
+end;
 
 procedure TFrmAnwendung.BtnZeichnenClick(Sender: TObject);
-
+var
+Groesse2: Integer;
+I: Integer;
 begin
   with ImgBild.Canvas do
     begin
       MoveTo (0,520);
       StrassenZeichnen;
+    end;
 
-      {Hier müssen die Häuser hin!}
+  for I := 1 to 10 do
+  begin
+    CreatKirche(HausAnfangx(I), HausAnfany(I), Trunc(Hausgroesseberechnen(HausAnfany(I))));
+  end;
 
-    end
+  for I := 1  to 14 do
+  Begin
+    CreatKirche(I*50+5, 60, 2);
+  End;
 end;
+
+procedure TFrmAnwendung.AutoAuto(Auto: TAuto);
+begin
+      Auto.Anfangx:= Auto.Anfangx+100;
+      AutoMalen(Auto.Anfangx, Auto.Anfangy, 10);
+end;
+
+
+
 
 end.
 

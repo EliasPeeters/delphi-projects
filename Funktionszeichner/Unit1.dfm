@@ -1,16 +1,20 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  AutoSize = True
+  BorderStyle = bsToolWindow
   Caption = 'Form1'
   ClientHeight = 500
-  ClientWidth = 980
+  ClientWidth = 956
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Menu = MainMenu1
   OldCreateOrder = False
+  Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
   object MalKasten: TPaintBox
@@ -77,5 +81,42 @@ object Form1: TForm1
     OnTimer = Timer1Timer
     Left = 864
     Top = 336
+  end
+  object MainMenu1: TMainMenu
+    Left = 816
+    Top = 8
+    object T1: TMenuItem
+      Caption = 'Test'
+      object Die1: TMenuItem
+        Caption = 'Dies'
+      end
+      object ist1: TMenuItem
+        Caption = 'ist'
+      end
+      object ein1: TMenuItem
+        Caption = 'ein'
+      end
+      object est1: TMenuItem
+        Caption = 'Test'
+      end
+    end
+    object test1: TMenuItem
+      Caption = 'test'
+    end
+    object Programm1: TMenuItem
+      Caption = 'Programm'
+      object Schlieen1: TMenuItem
+        Caption = 'Schlie'#223'en'
+        OnClick = Schlieen1Click
+      end
+      object Minimieren1: TMenuItem
+        Caption = 'Minimieren'
+        OnClick = Minimieren1Click
+      end
+      object Abstuerzen1: TMenuItem
+        Caption = 'Abstuerzen'
+        OnClick = Abstuerzen1Click
+      end
+    end
   end
 end
